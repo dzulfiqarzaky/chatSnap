@@ -1,0 +1,35 @@
+<%- include ('header') %> 
+
+
+
+<div class="container mt-5">
+
+    <h1> SIGN UP </h1>
+    <form class="mt-5">
+        <div class="col-md-4">
+          <label for="username" class="form-label">UserName</label>
+          <input type="text" class="form-control" name="username">
+        </div> <br>
+        <div class="col-md-4">
+          <label for="password" class="form-label">Password</label>
+          <input type="password" class="form-control" name="password">
+        </div> <br>
+        <div class="col-4">
+          <label for="email" class="form-label">Email</label>
+          <input type="email" class="form-control" name="email" placeholder="Apartment, studio, or floor">
+        </div> <br>
+        <div class="col-md-4">
+            <label for="inputState" class="form-label">Role</label>
+            <select id="inputState" name="role" class="form-select">
+              <option selected hidden>Choose your role...</option>
+              <option value="admin">admin</option>
+              <option value="user">user</option>
+            </select>
+          </div>
+        <div class="col-12 mt-5">
+          <button type="submit" class="btn btn-primary">Sign up</button>
+        </div>
+      </form>
+</div>
+    
+    <%- include ('footer') %> 
