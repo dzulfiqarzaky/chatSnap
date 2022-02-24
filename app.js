@@ -16,39 +16,10 @@ app.use(session({
   cookie:{
     secure: false,
     sameSite: true,
-    maxAge: 1000 * 60 * 60 * 24 * 7
+    maxAge: 1000 * 60 * 60 * 24 * 7 
   }
 }))
 
-//set storage
-const storage = multer.diskStorage({
-  destination: './public/upload/',
-  filename: function(req, file, cb){
-    cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname))
-  }
-})
-const upload = multer({
-  storage:storage,
-  limits: {fileSize: 2000000},
-  fileFilter: function(req, file, cb){
-    checkFileType(file, cb)
-  }
-}).single('img')
-
-function checkFileType(file,cb){
-  //allow extensions
-  const filetypes = /jpg|jpeg|png|gif/
-  //check ext
-  const extname= filetypes.test(path.extname(file.originalname).toLowerCase())
-  // check mimetype
-  const mimetype= filetypes.test(file.mimetype)
-
-  if(extname && mimetype){
-    return cb(null, true)
-  } else {
-    cb('Images only')
-  }
-}
 //public folder -> utk simpan ifle upload
 app.use(express.static('./public'))
 

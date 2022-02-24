@@ -15,7 +15,7 @@
           <h5 class="card-title text-center"><%= post.title %></h5>
           <p class="card-text text-center"><%= post.description %></p>
           <div class="d-flex gap-2 mt-4">
-            <a href="" style="width: 8rem;" class="btn btn-outline-primary" type="button">Edit</a>
+            <a href="/user/post/<%= post.id %>/edit" style="width: 8rem;" class="btn btn-outline-primary" type="button">Edit</a>
             <a href="/user/post/<%= post.id %>/delete" style="width: 8rem;" class="btn btn-danger" type="button">Delete</a>  
           </div>
         </div>

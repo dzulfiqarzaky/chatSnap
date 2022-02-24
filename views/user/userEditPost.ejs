@@ -1,28 +1,39 @@
 <%- include('../helper/header') -%> 
 
 <% console.log('masuk') %> 
-  <div class="container mt-5">
-      <h1>Add New Post</h1>
-      <form method="post" action="/user/post/add" class="container mt-5">
+  <div class="container mt-5"> 
+      <h1>Edit Post</h1> 
+      <form method="post" action="/user/post/<%= post.id %>/edit" class="container mt-5">
         <div class="mb-3">
           <label for="title" class="form-label">Title</label>
-          <input type="text" class="form-control" name="title" placeholder="" required />
+          <input type="text" class="form-control" name="title" placeholder="" required value="<%= post.title %>" />
         </div>
         <div class="mb-3">
           <label for="desc" class="form-label">Description</label>
-          <textarea type="text" class="form-control" name="description" placeholder="Description"></textarea>
+          <textarea type="text" class="form-control" name="description" placeholder="Description"><%= post.description %></textarea>
         </div>
         <div class="col-md">
-          <% tags.forEach(tag => { %>
-            <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="<%= tag.id %>" name="tagId" id="flexCheckDefault" >
-              <label class="form-check-label" for="flexCheckDefault">
-                <%= tag.name%>
-              </label>
-            </div>
-              <% })%>
+            <% tags.forEach(tag => { %>
+                <% post.Tags.forEach(postTag => { %>
+                    <% if (tag.id !== postTag.id) { %>
+                     <% return %> 
+                    <% } %>
+                      <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="<%= tag.id %>" name="tagId" id="flexCheckDefault" checked >
+                        <label class="form-check-label" for="flexCheckDefault">
+                          <%=tag.name%>
+                        </label>
+                      </div>   
+                    <% })%>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="<%= tag.id %>" name="tagId" id="flexCheckDefault"  >
+                        <label class="form-check-label" for="flexCheckDefault">
+                        <%=tag.name%>
+                        </label>
+                    </div>
+            <% }) %>
         </div>
-          <button type="submit" class="btn btn-primary mt-5">add post</button>
+          <button type="submit" class="btn btn-primary mt-5">edit post</button>
       </form>
   </div>
 

@@ -1,6 +1,6 @@
 const {Post, Profile, User, Tag, Post_Tag} = require('../models')
-const express = require('express')
 const multer = require('multer')
+const path = require('path')
 
 
 class UserController {
@@ -46,8 +46,6 @@ class UserController {
     }
 
     static userPostAdd(req, res) {
-        console.log(req.body)
-        console.log(`masuk sini`)
         //create berulang sesuai jumlah array
         Post.create({
             title: req.body.title, 
@@ -75,7 +73,7 @@ class UserController {
     }
 
     static userUpload(req, res) {
-        let id = req.session.userId
+        let id = req.session.PostId
         let newFile
         //set storage
         const storage = multer.diskStorage({
@@ -107,19 +105,30 @@ class UserController {
             cb('Images only')
             }
         }
-        console.log(req.body)
+        console.log(req.se)
         upload(req, res, (err)=> {
             if(err) {
-                res.render('user/userUploadForm', {msg:err})
+                res.render('./user/userUploadForm', {msg:err})
             } else {
                 if(!req.file){
-                    res.render('userAddUpload', {msg: 'no file selected'})
+                    res.render('./user/userUploadForm', {msg: 'no file selected'})
                 } else {
-                    res.render('userAddUpload', {msg: 'File uploaded', file: `upload/${req.file.filename}`})
+                Post.update({img: `upload/${newFile}` },
+                    { where: { id: id }
+                })
+                .then(image=> {
+                    console.log(newFile)
+                    res.redirect('/user/post')
+                })
+                .catch(err=> {
+                    console.log(err)
+                    // res.send(err)
+                })
+                    
                 }
             } 
+            
         })
-        Post.update({where: { id: id }})
     }
     
     static editPostForm(req, res) {
@@ -129,9 +138,10 @@ class UserController {
         .then(post => {
             Tag.findAll()
             .then(tags => {
-                res.render('./user/userPostEdit', {post, tags, id})
+                res.render('./user/userEditPost', {post, tags, id})
             })
         }).catch(err => {
+            console.log(err)
             res.send(err)
         })
     }
@@ -139,13 +149,39 @@ class UserController {
 
 
     static editPost(req, res) {
+        console.log(`masuk`)
+        console.log(req.body, 'ini body')
         const {postId} = req.params
-        Post.findByPk(postId)
-        .then(post => {
-            post.update({
-                title: req.body.title,
-                description: req.body.description
+        const id = req.session.userId
+        Post.update({
+            title: req.body.title, 
+            description: req.body.description
+        }, {where: {id: postId}})
+        .then(() => {
+            Post_Tag.destroy({where: {PostId: postId}})
+            .then(() => {
+                const tags = req.body.tagId
+                if(tags.length === 1){
+                    Post_Tag.create({
+                        PostId: postId,
+                        TagId: tags
+                    })
+                } else {
+                    tags.forEach(tag => {
+                        Post_Tag.create({
+                            PostId: postId,
+                            TagId: tag
+                        })
+                    })
+
+                }
+            }).then(() => {
+                console.log(`masuk redirect`)
+                res.redirect(`/user/post/`)
             })
+        }).catch(err => {
+            console.log(err)
+            res.send(err)
         })
     }
     
