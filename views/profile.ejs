@@ -1,11 +1,13 @@
-<%- include ('header') %> 
+<%- include ('./helper/header') %> 
 
 
+</style>
+<% console.log(id) %> 
 
 <div class="container mt-5">
 
-    <h1> SIGN UP </h1>
-    <form class="mt-5">
+    <h1> Profile </h1>
+    <form class="mt-5" action="/signUp/profile", method="post">
         <div class="col-md-4">
           <label for="username" class="form-label">UserName</label>
           <input type="text" class="form-control" name="username">
@@ -16,12 +18,13 @@
         </div> <br>
         <div class="col-4">
           <label for="email" class="form-label">Email</label>
-          <input type="email" class="form-control" name="email" placeholder="Apartment, studio, or floor">
+          <input type="email" class="form-control" name="email" placeholder="">
         </div> <br>
+        <input type="number" class="form-control" name="userId" value="<%= id %>" placeholder="" hidden>
         <div class="col-md-4">
             <label for="inputState" class="form-label">Role</label>
             <select id="inputState" name="role" class="form-select">
-              <option selected hidden>Choose your role...</option>
+              <option selected disabled>Choose your role...</option>
               <option value="admin">admin</option>
               <option value="user">user</option>
             </select>
@@ -32,4 +35,4 @@
       </form>
 </div>
     
-    <%- include ('footer') %> 
+    <%- include ('./helper/footer') %> 

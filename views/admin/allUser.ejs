@@ -1,0 +1,91 @@
+<%- include('../helper/header') -%>
+
+<%- include ('../helper/navbar') %> 
+<div class="container mt-5">
+  <form action="/admin/<%= admin.id %>" method="get">
+    <a href="/admin/<%= admin.id %>" class="btn btn-primary">all users</a>
+    <button type="submit" class="btn btn-primary" name="filter" value="Post">all post</button>
+    <button type="submit" class="btn btn-primary" name="filter" value="Tag">all tags</button>
+  </form>
+
+
+  <H1 class="mt-5">welcome admin <%= admin.username %> </H1>
+  <% if (filters.length > 0) { %>
+    <% if (filters[0].title) { %>
+      <table class="table mt-5">
+        <thead>
+          <tr>
+            <th scope="col">id</th>
+            <th scope="col">title</th>
+            <th scope="col">desc</th>
+            <th scope="col">Role</th>
+            <th scope="col">profileId</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% filters.forEach(post =>{%>
+                <tr>
+                  <th scope="row"><%= post.id %></th>
+                  <td><%= post.title %></td>
+                    <td><%= post.description %></td>
+                    <td><%= post.profileId %></td>
+                    <td>
+                        <a href="" style="width: 8rem;" class="btn btn-outline-primary" type="button">User Post</a>
+                        <a href="/admin/<%= admin.id %>/delete/post/<%= post.id %>" style="width: 8rem;" class="btn btn-danger" type="button">Delete</a>  
+                    </td>
+                </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    <% } else {%>
+    <table class="table mt-5">
+      <thead>
+        <tr>
+          <th scope="col">Name</th>
+          <th scope="col">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% filters.forEach(tag =>{%>
+
+              <tr>
+                <th scope="row"><%= tag.name %></th>
+                  <td>
+                      <a href="" style="width: 8rem;" class="btn btn-outline-primary" type="button">User Post</a>
+                      <a href="/admin/<%= admin.id %>/delete/tag/<%= tag.id %>" style="width: 8rem;" class="btn btn-danger" type="button">Delete</a>  
+                  </td>
+              </tr>
+        <% }) %>
+      </tbody>
+    </table>
+    <% } %>
+  <% } else{%>
+  <table class="table mt-5">
+        <thead>
+          <tr>
+            <th scope="col">id</th>
+            <th scope="col">UserName</th>
+            <th scope="col">Email</th>
+            <th scope="col">Role</th>
+            <th scope="col">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% users.forEach((user, i) =>{%>
+                <tr>
+                  <th scope="row"><%= i+1 %></th>
+                  <td><%= user.username %></td>
+                    <td><%= user.email %></td>
+                    <td><%= user.role %></td>
+                    <td>
+                        <a href="" style="width: 8rem;" class="btn btn-outline-primary" type="button">User details</a>
+                        <a href="/admin/<%= admin.id %>/delete/user/<%= user.id %>" style="width: 8rem;" class="btn btn-danger" type="button">Delete</a>  
+                    </td>
+                </tr>
+          <% }) %>
+        </tbody>
+      </table>
+      <% } %>
+</div>
+
+<%- include('../helper/footer') -%>

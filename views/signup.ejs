@@ -1,28 +1,30 @@
-<%- include ('header') %> 
+<%- include ('./helper/header') %> 
     
 
+<div id="intro">
+  
+      <div class="container">
+  
+        <h1 class="pt-5" style="color: white;"> SIGN UP</h1>
+  
+          <form style="color: white;" method="post" action="/signUp">
+              <div class="col-md-4 mt-2">
+                <label for="name" class="form-label">Name</label>
+                <input type="text" class="form-control" name="name">
+              </div>
+              <div class="col-md-4 mt-2">
+                <label for="born" class="form-label">Born</label>
+                <input type="date" class="form-control" name="born">
+              </div>
+              <div class="col-4 mt-4">
+                <label for="inputAddress2" class="form-label">Address 2</label>
+                <input type="text" class="form-control" name="address" placeholder="Apartment, studio, or floor">
+              </div>
+              <div class="col-12 mt-5">
+                <button type="submit" class="btn btn-outline-warning">next</button>
+              </div>
+            </form>
+      </div>
+</div>
 
-    <div class="container mt-5">
-
-      <h1> SIGN UP</h1>
-
-        <form class="">
-            <div class="col-md-4 mt-2">
-              <label for="name" class="form-label">Name</label>
-              <input type="text" class="form-control" name="name">
-            </div>
-            <div class="col-md-4 mt-2">
-              <label for="born" class="form-label">Born</label>
-              <input type="date" class="form-control" name="born">
-            </div>
-            <div class="col-4 mt-4">
-              <label for="inputAddress2" class="form-label">Address 2</label>
-              <input type="text" class="form-control" name="inputAddress2" placeholder="Apartment, studio, or floor">
-            </div>
-            <div class="col-12 mt-5">
-              <button type="submit" class="btn btn-outline-warning">next</button>
-            </div>
-          </form>
-    </div>
-
-    <%- include ('footer') %> 
+    <%- include ('./helper/footer') %> 

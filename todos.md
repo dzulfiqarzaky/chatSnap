@@ -19,3 +19,27 @@ belajar ini
 
 -- mvp multer (?) => upload file via form
                   => tampilin foto 
+
+
+
+
+
+CONTOH DARI SIGN IN
+- signupUser -> isi profile -> userPage (
+   All image(cuma bisa liat, kecuali), 
+   searchByTags(cuma bisa liat, kecuali) / 
+   yourPost(bisa edit, delete), bisa bikin post, bisa bikin tags
+)
+
+- signUpAdmin -> isi profile -> adminPage (
+   
+   All user(bisa delete), //done
+   allPost(bisa delete), 
+   allTags(bisa delete),
+   
+)
+
+CONTOH LOGIN
+-login -> userPage(logOut)
+-login -> adminPage(logOut)
+

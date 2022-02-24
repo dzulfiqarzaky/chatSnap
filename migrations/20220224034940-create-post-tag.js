@@ -1,29 +1,26 @@
 'use strict';
 module.exports = {
-  up(queryInterface, Sequelize) {
-    return queryInterface.createTable('Profiles', {
+  async up(queryInterface, Sequelize) {
+    await queryInterface.createTable('Post_Tags', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      username: {
-        type: Sequelize.STRING
-      },
-      password: {
-        type: Sequelize.STRING
-      },
-      email: {
-        type: Sequelize.STRING
-      },
-      role: {
-        type: Sequelize.STRING
-      },
-      userId: {
+      PostId: {
         type: Sequelize.INTEGER,
         references: {
-          model: 'Users',
+          model: 'Posts',
+          key: 'id'
+        },
+        onDelete: 'cascade',
+        onUpdate: 'cascade'
+      },
+      TagId: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'Tags',
           key: 'id'
         },
         onDelete: 'cascade',
@@ -39,7 +36,7 @@ module.exports = {
       }
     });
   },
-  down(queryInterface, Sequelize) {
-    return queryInterface.dropTable('Profiles');
+  async down(queryInterface, Sequelize) {
+    await queryInterface.dropTable('Post_Tags');
   }
 };

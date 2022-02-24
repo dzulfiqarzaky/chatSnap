@@ -12,6 +12,9 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       Post.belongsTo(models.Profile, {foreignKey: 'profileId'})
+      
+      Post.hasMany(models.Post_Tag, {foreignKey: 'PostId'})
+      Post.belongsToMany(models.Tag, {through: models.Post_Tag})
     }
   }
   Post.init({

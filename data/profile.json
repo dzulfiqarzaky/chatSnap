@@ -1,18 +1,8 @@
-[{"username":"Dun","password":"Gwynne","email":"dgwynne0@comcast.net","role":"user"},
-{"username":"Romy","password":"Aloigi","email":"raloigi1@tinyurl.com","role":"admin"},
-{"username":"Kira","password":"Fountian","email":"kfountian2@nationalgeographic.com","role":"admin"},
-{"username":"Tabby","password":"Awcoate","email":"tawcoate3@themeforest.net","role":"admin"},
-{"username":"Kristy","password":"Wearing","email":"kwearing4@ucoz.ru","role":"user"},
-{"username":"Noreen","password":"Ickovicz","email":"nickovicz5@geocities.jp","role":"user"},
-{"username":"Augustin","password":"Digweed","email":"adigweed6@xing.com","role":"user"},
-{"username":"Leah","password":"Belvard","email":"lbelvard7@last.fm","role":"admin"},
-{"username":"Celestia","password":"Chasmoor","email":"cchasmoor8@netlog.com","role":"admin"},
-{"username":"Lynea","password":"Osant","email":"losant9@google.co.jp","role":"admin"},
-{"username":"Reena","password":"Leadbeatter","email":"rleadbeattera@yahoo.co.jp","role":"admin"},
-{"username":"Nissie","password":"Kindon","email":"nkindonb@exblog.jp","role":"user"},
-{"username":"Anjela","password":"Gagg","email":"agaggc@huffingtonpost.com","role":"admin"},
-{"username":"Norbie","password":"Macoun","email":"nmacound@accuweather.com","role":"user"},
-{"username":"Erhart","password":"Maylour","email":"emayloure@imdb.com","role":"admin"},
-{"username":"Patrizio","password":"Stubbs","email":"pstubbsf@yale.edu","role":"admin"},
-{"username":"Katerine","password":"Vasilkov","email":"kvasilkovg@ibm.com","role":"admin"},
-{"username":"Auberta","password":"Deble","email":"adebleh@digg.com","role":"user"}]
+[
+{"username":"Dun","password":"Gwynne","email":"dgwynne0@comcast.net","role":"user", "userId":1},
+{"username":"Romy","password":"Aloigi","email":"raloigi1@tinyurl.com","role":"admin", "userId":2},
+{"username":"Kira","password":"Fountian","email":"kfountian2@nationalgeographic.com","role":"admin", "userId":3},
+{"username":"Tabby","password":"Awcoate","email":"tawcoate3@themeforest.net","role":"admin", "userId":4},
+{"username":"Kristy","password":"Wearing","email":"kwearing4@ucoz.ru","role":"user", "userId":5},
+{"username":"Noreen","password":"Ickovicz","email":"nickovicz5@geocities.jp","role":"user", "userId":6}
+]
