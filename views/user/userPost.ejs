@@ -1,29 +1,12 @@
 <%- include ('../helper/header') -%>
 
 <div class="container mt-5">
-  <!-- <form method="get" action="/">
-    <button class="btn btn-outline-primary mt-5" type="submit" name="sort" value="name">Sort by Name</button>
-    <button class="btn btn-outline-primary mt-5" type="submit" name="sort" value="position">Sort by Position</button>
-  </form>
-  <form method="get" action="/">
-    <div class="col-md-4">
-      <label for="inputState" class="form-label">Education</label>
-      <select name="filter" class="form-select">
-        <option selected disabled>Select Education</option>
-        <% const arr = ['Bachelor Degree', 'Master Degree'] %> 
-        <% arr.forEach(employee => { %>
-          <option value="<%= employee %>"><%= employee %> </option>
-        <% }) %>
-      </select>
-      <button class="btn btn-outline-primary mt-5" type="submit">filterBy</button>
-    </div>
-  </form> -->
-
   <h1>welcome <%= profile.username %> </h1>
   <% const date = new Date().getHours() %> 
 
   <h3 style="color: lightcoral"><%= date < 12? 'Good morning': date < 18? 'Good evening': date < 24? 'Good night': ''  %></h3>
   
+<a href="/user/post/add" class="btn btn-primary">add new post</a>
   <div class="d-flex flex-wrap bd-highlight gap-5 ">
     <% profile.Posts.forEach(post => { %>
       <div class="card mt-4" style="width: 18rem;">
@@ -33,11 +16,11 @@
           <p class="card-text text-center"><%= post.description %></p>
           <div class="d-flex gap-2 mt-4">
             <a href="" style="width: 8rem;" class="btn btn-outline-primary" type="button">Edit</a>
-            <a href="" style="width: 8rem;" class="btn btn-danger" type="button">Delete</a>  
+            <a href="/user/post/<%= post.id %>/delete" style="width: 8rem;" class="btn btn-danger" type="button">Delete</a>  
           </div>
         </div>
       </div>
-    <% }) %>
+    <% }) %> 
   </div>
 </div>
 <%- include ('../helper/footer') -%>  

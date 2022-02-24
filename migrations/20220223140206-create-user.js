@@ -12,7 +12,7 @@ module.exports = {
         type: Sequelize.STRING
       },
       born: {
-        type: Sequelize.STRING
+        type: Sequelize.DATE
       },
       address: {
         type: Sequelize.STRING

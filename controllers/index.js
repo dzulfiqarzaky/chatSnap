@@ -17,30 +17,28 @@ class Controller {
             where: {username}
         })
         .then(user=> {
+            console.log(req.session)
             if(user){
                 const validPass = bcrypt.compareSync(password, user.password)
                 if(validPass){
-                    console.log(req.session, 'validPass1')
                     req.session.userId = user.id
                     req.session.role = user.role
-                    console.log(req.session, 'validPass2')
                     if(user.role === 'user'){
-                        res.redirect(`/user/${user.id}`)
+                        res.redirect(`/user`)
                     } else {
-                        res.redirect(`/admin/${user.id}`)
+                        console.log(req.session, 'ini session')
+                        res.redirect(`/admin`)
                     }
-                    // return res.redirect('/users')
                 } else {
-                    console.log(err)
                     let error = 'invalid username or password'
-                    return res.redirect('')
+                    res.redirect(`/signIn?error=${error}`)
                 }
             } 
         })
         .catch(err => {
             console.log(err, 'catch')
             err = 'user not found'
-            res.redirect('')
+            res.redirect(`/signIn?error=${err}`)
         })
     }
 
@@ -96,7 +94,7 @@ class Controller {
     }
 
     static logOut(req,res){
-      res.send("logOut")
+        res.send("logOut")
     }
 
 }

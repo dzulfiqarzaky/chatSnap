@@ -1,0 +1,15 @@
+<%- include('../helper/header') -%> 
+
+<% console.log('upload form') %> 
+  <div class="container mt-5">
+      <h1>Add New Post</h1>
+        <form action="/user/post/add/upload" method="post" enctype="multipart/form-data">
+          <label for="imageUrl" class="form-label">Pick Image</label><br>
+          <%= typeof file != 'undefined' ? file : "" %>
+          <%= typeof msg != 'undefined' ? msg : "" %>
+          <input type="file" class="form-control" name="img" placeholder="" >
+          <button type="submit">Upload</button>
+        </form>
+  </div>
+
+<%- include('../helper/footer') -%> 

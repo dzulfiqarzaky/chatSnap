@@ -2,8 +2,8 @@
 
 <%- include ('../helper/navbar') %> 
 <div class="container mt-5">
-  <form action="/admin/<%= admin.id %>" method="get">
-    <a href="/admin/<%= admin.id %>" class="btn btn-primary">all users</a>
+  <form action="/admin" method="get">
+    <a href="/admin" class="btn btn-primary">all users</a>
     <button type="submit" class="btn btn-primary" name="filter" value="Post">all post</button>
     <button type="submit" class="btn btn-primary" name="filter" value="Tag">all tags</button>
   </form>
@@ -31,7 +31,7 @@
                     <td><%= post.profileId %></td>
                     <td>
                         <a href="" style="width: 8rem;" class="btn btn-outline-primary" type="button">User Post</a>
-                        <a href="/admin/<%= admin.id %>/delete/post/<%= post.id %>" style="width: 8rem;" class="btn btn-danger" type="button">Delete</a>  
+                        <a href="/admin/delete/post/<%= post.id %>" style="width: 8rem;" class="btn btn-danger" type="button">Delete</a>  
                     </td>
                 </tr>
           <% }) %>
@@ -52,7 +52,7 @@
                 <th scope="row"><%= tag.name %></th>
                   <td>
                       <a href="" style="width: 8rem;" class="btn btn-outline-primary" type="button">User Post</a>
-                      <a href="/admin/<%= admin.id %>/delete/tag/<%= tag.id %>" style="width: 8rem;" class="btn btn-danger" type="button">Delete</a>  
+                      <a href="/admin/delete/tag/<%= tag.id %>" style="width: 8rem;" class="btn btn-danger" type="button">Delete</a>  
                   </td>
               </tr>
         <% }) %>
@@ -79,7 +79,7 @@
                     <td><%= user.role %></td>
                     <td>
                         <a href="" style="width: 8rem;" class="btn btn-outline-primary" type="button">User details</a>
-                        <a href="/admin/<%= admin.id %>/delete/user/<%= user.id %>" style="width: 8rem;" class="btn btn-danger" type="button">Delete</a>  
+                        <a href="/admin/delete/user/<%= user.id %>" style="width: 8rem;" class="btn btn-danger" type="button">Delete</a>  
                     </td>
                 </tr>
           <% }) %>

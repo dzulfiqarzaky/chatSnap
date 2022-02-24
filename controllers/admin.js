@@ -4,10 +4,13 @@ const {Post, Profile, User, Tag} = require('../models')
 class AdminController {
 
     static allUser(req, res){
+        console.log(req.session, 'ini allUser')
+
         const {filter} = req.query
-        const {id} = req.params
+        const id = req.session.userId
         let filters = []
         
+        console.log(id)
         if(filter === 'Tag'){
             Tag.findAll()
             .then(tags => {
@@ -44,11 +47,10 @@ class AdminController {
     }
     
     static deleteUser(req, res){
-        console.log(req.params)
+
         Profile.destroy({where: {id: req.params.userId}})
         .then(() => {
-            
-            res.redirect(`/admin/${req.params.id}`)
+            res.redirect(`/admin/`)
         }).catch(err => {
             console.log(err)
             res.send(err)
@@ -58,7 +60,7 @@ class AdminController {
     static deleteTag(req, res){
         Tag.destroy({where: {id: req.params.tagId}})
         .then(() => {
-            res.redirect(`/admin/${req.params.id}?filter=Tag`)
+            res.redirect(`/admin/?filter=Tag`)
         }).catch(err => {
             console.log(err)
             res.send(err)
@@ -68,7 +70,7 @@ class AdminController {
     static deletePost(req, res){
         Post.destroy({where: {id: req.params.postId}})
         .then(() => {
-            res.redirect(`/admin/${req.params.id}?filter=Post`)
+            res.redirect(`/admin/?filter=Post`)
         }).catch(err => {
             console.log(err)
             res.send(err)

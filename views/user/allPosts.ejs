@@ -1,34 +1,40 @@
 <%- include ('../helper/header') -%>
 
 <div class="container">
-  <form method="get" action="/">
+  <!-- <form method="get" action="/">
     <button class="btn btn-outline-primary mt-5" type="submit" name="sort" value="name">Sort by Name</button>
     <button class="btn btn-outline-primary mt-5" type="submit" name="sort" value="position">Sort by Position</button>
-  </form>
-  <form method="get" action="/">
+  </form> -->
+  <a href="/user/post" class="btn btn-outline-primary">profile</a>
+  <form method="get" action="/user/">
     <div class="col-md-4">
-      <label for="inputState" class="form-label">Education</label>
+      <label for="inputState" class="form-label mt-5">filter by tags</label>
       <select name="filter" class="form-select">
-        <option selected disabled>Select Education</option>
-        <% const arr = ['Bachelor Degree', 'Master Degree'] %> 
-        <% arr.forEach(employee => { %>
-          <option value="<%= employee %>"><%= employee %> </option>
+        <option selected disabled>filter by tags</option>
+        <% tags.forEach(tag => { %>
+          <option value="<%= tag.id %>"><%= tag.name %></option>
         <% }) %>
       </select>
-      <button class="btn btn-outline-primary mt-5" type="submit">filterBy</button>
+      <button class="btn btn-outline-primary mt-2" type="submit">filterBy</button>
     </div>
   </form>
   <div class="d-flex flex-wrap bd-highlight gap-5 ">
     <% posts.forEach(post => { %>
       <div class="card mt-4" style="width: 18rem;">
-        <img src="<%= post.img %> " class="card-img-top" alt="...">
+        <img src="<%= post.img %>" class="card-img-top" alt="...">
         <div class="card-body">
           <h5 class="card-title text-center"><%= post.title %></h5>
           <p class="card-text text-center"><%= post.description %></p>
-          <div class="d-flex gap-2 mt-4">
-            <a href="" style="width: 8rem;" class="btn btn-outline-primary" type="button">Edit</a>
-            <a href="" style="width: 8rem;" class="btn btn-danger" type="button">Delete</a>  
-          </div>
+          <% post.Tags.forEach(tag => { %>
+            <p class="card-text text-center"><%= tag.name %></p>
+          <% }) %>
+            <p>posted by: <%= post.Profile.username %></p>
+          <% if (post.Profile.id === +id) { %>
+            <div class="d-flex gap-2 mt-4">
+              <a href="" style="width: 8rem;" class="btn btn-outline-primary" type="button">Edit</a>
+              <a href="/user/post/<%= post.id %>/delete" style="width: 8rem;" class="btn btn-danger" type="button">Delete</a>  
+            </div>
+          <% } %>
         </div>
       </div>
     <% }) %>

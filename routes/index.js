@@ -12,9 +12,36 @@ router.post('/signUp', Controller.signUpPost) //signup post
 router.get('/signUp/profile', Controller.profile) //signup/profile page
 router.post('/signUp/profile', Controller.profilePost) //signup/profile post
 
+let isLogin = function(req,res,next){
+  // console.log(req.session)
+  if(req.session.userId){
+    next()
+  } else {
+    let error = 'please login'
+    res.redirect(`/signIn/?error=${error}`)
+  }
+}
+
+let isAdmin = function(req,res , next){
+  if(req.session.role == "admin"){
+    next()
+  } else {
+    let error = 'need to be an admin'
+    res.redirect(`/signIn/?error=${error}`)
+  }
+}
+
+router.use((req, res, next) => {
+  if(!req.session.userId){
+
+      let error = 'please login'
+      res.redirect(`/signIn/?error=${error}`)
+  } else {
+      next()
+  }
+})
 
 router.use('/user', userRouter) //user routes
-
-router.use('/admin', adminRouter) //admin routes
+router.use('/admin',  adminRouter) //admin routes
 
 module.exports = router
