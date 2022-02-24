@@ -34,14 +34,19 @@ class AdminController {
             })
         } else{
             let users
-            
+            let admin
             Profile.findAll({include: User, where: {role: 'user'}})
             .then( user => {
                 console.log(user[0].User.age , 'umur')
                 users = user
-                Profile.findByPk(id)
-                .then(admin => res.render('./admin/allUser', {users, filters, admin}))
-            }).catch(err => {
+                return Profile.findByPk(id)
+            })
+            .then(single => {
+                admin = single
+                return Profile.sum()
+            })
+            .then(sum => res.render('./admin/allUser', {users, filters, admin, sum}))
+            .catch(err => {
                 console.log(err)
                 res.send(err)
             })

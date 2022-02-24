@@ -10,20 +10,23 @@ module.exports = (sequelize, DataTypes) => {
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
-    static sum(){
-      return Profile.findAll({
-        where: {role: 'user'},
-        attributes: [
-          [sequelize.fn('count', sequelize.col('role')), count]
-        ]
-      })
-        .then((result) => `Jumlah seluruh user adalah ${result[0].datavalues.count}`)
-    }
-
+    
     static associate(models) {
       // define association here
       Profile.belongsTo(models.User, {foreignKey: 'userId'})
       Profile.hasMany(models.Post, {foreignKey: 'profileId'})
+    }
+
+    static sum(){
+      return Profile.findAll({
+        where: {role:'user'},
+        attributes: [
+          [sequelize.fn('COUNT', sequelize.col('role')), 'count']
+        ]
+      })
+        .then((result) => {
+          return `Jumlah seluruh user adalah ${result[0].dataValues.count}`
+        })
     }
   }
   Profile.init({
