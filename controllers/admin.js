@@ -4,13 +4,11 @@ const {Post, Profile, User, Tag} = require('../models')
 class AdminController {
 
     static allUser(req, res){
-        console.log(req.session, 'ini allUser')
         
         const {filter} = req.query
         const id = req.session.userId
         let filters = []
         
-        console.log(id)
         if(filter === 'Tag'){
             Tag.findAll()
             .then(tags => {
@@ -18,18 +16,15 @@ class AdminController {
                 Profile.findByPk(id)
                 .then(admin => res.render('./admin/allUser', {filters, admin}))
             }).catch(err => {
-                console.log(err)
                 res.send(err)
             })
         } else if(filter === 'Post'){
             Post.findAll()
             .then(posts => {
                 filters.push(...posts)
-                console.log(filters)
                 Profile.findByPk(id)
                 .then(admin => res.render('./admin/allUser', {filters, admin}))
             }).catch(err => {
-                console.log(err)
                 res.send(err)
             })
         } else{
@@ -37,7 +32,6 @@ class AdminController {
             let admin
             Profile.findAll({include: User, where: {role: 'user'}})
             .then( user => {
-                console.log(user[0].User.age , 'umur')
                 users = user
                 return Profile.findByPk(id)
             })
@@ -47,7 +41,6 @@ class AdminController {
             })
             .then(sum => res.render('./admin/allUser', {users, filters, admin, sum}))
             .catch(err => {
-                console.log(err)
                 res.send(err)
             })
         }
@@ -60,7 +53,6 @@ class AdminController {
         .then(() => {
             res.redirect(`/admin/`)
         }).catch(err => {
-            console.log(err)
             res.send(err)
         })
     }
@@ -70,7 +62,6 @@ class AdminController {
         .then(() => {
             res.redirect(`/admin/?filter=Tag`)
         }).catch(err => {
-            console.log(err)
             res.send(err)
         })
     }
@@ -80,7 +71,6 @@ class AdminController {
         .then(() => {
             res.redirect(`/admin/?filter=Post`)
         }).catch(err => {
-            console.log(err)
             res.send(err)
         })
     }

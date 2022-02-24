@@ -22,7 +22,6 @@ class UserController {
         .then(tags=> {
             res.render('./user/allPosts', {posts, tags, id})
         }).catch(err => {
-            console.log(err)
             res.send(err)
         })
     }
@@ -47,7 +46,6 @@ class UserController {
     }
 
     static userPostAdd(req, res) {
-        console.log(req.session)
         //create berulang sesuai jumlah array
         Post.create({
             title: req.body.title, 
@@ -72,20 +70,32 @@ class UserController {
             res.redirect(`/user/post/add/${post.id}/upload`)
         })
         .catch(err => {
-            console.log(err)
             res.send(err)
         })
     }
     
+    static userAddTagForm(req, res) {
+        res.render('./user/userAddTagsForm')
+    }
+
+    static userAddTag(req, res) {
+        Tag.create({
+            name: req.body.name
+        })
+        .then(() => {
+            res.redirect('/user/')
+        }).catch(err => {
+            res.send(err)
+        })
+    }
+
     static userUploadForm(req, res) {
         const {postId} = req.params
-        console.log(req.params)
         res.render('./user/userUploadForm', {postId})
     }
 
     static userUpload(req, res) {
         const {postId} = req.params
-        console.log(req.params, 'userUpload')
         let newFile
         //set storage
         const storage = multer.diskStorage({
@@ -129,12 +139,10 @@ class UserController {
                     { where: { id: postId }
                 })
                 .then(image=> {
-                    console.log(newFile)
                     res.redirect('/user/post')
                 })
                 .catch(err=> {
-                    console.log(err)
-                    // res.send(err)
+                    res.send(err)
                 })
                     
                 }
@@ -153,7 +161,6 @@ class UserController {
                 res.render('./user/userEditPost', {post, tags, id})
             })
         }).catch(err => {
-            console.log(err)
             res.send(err)
         })
     }
@@ -161,8 +168,6 @@ class UserController {
 
 
     static editPost(req, res) {
-        console.log(`masuk`)
-        console.log(req.body, 'ini body')
         const {postId} = req.params
         const id = req.session.userId
         Post.update({
@@ -188,11 +193,9 @@ class UserController {
 
                 }
             }).then(() => {
-                console.log(`masuk redirect`)
                 res.redirect(`/user/post/`)
             })
         }).catch(err => {
-            console.log(err)
             res.send(err)
         })
     }
@@ -204,15 +207,11 @@ class UserController {
         .then(() => {
             res.redirect(`/user/post`)
         }).catch(err => {
-            console.log(err)
             res.send(err)
         })
         
     }
 
-    static uploadImg(req,res){
-
-    }
 
 }
 

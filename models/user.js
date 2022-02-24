@@ -11,8 +11,6 @@ module.exports = (sequelize, DataTypes) => {
      */
 
     get age(){
-      console.log('masuk')
-      console.log(this.born)
       return new Date().getFullYear() - new Date(this.born).getFullYear()
     }
 

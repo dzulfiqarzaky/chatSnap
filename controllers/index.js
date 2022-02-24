@@ -17,7 +17,6 @@ class Controller {
             where: {username}
         })
         .then(user=> {
-            console.log(req.session)
             if(user){
                 const validPass = bcrypt.compareSync(password, user.password)
                 if(validPass){
@@ -26,7 +25,6 @@ class Controller {
                     if(user.role === 'user'){
                         res.redirect(`/user`)
                     } else {
-                        console.log(req.session, 'ini session')
                         res.redirect(`/admin`)
                     }
                 } else {
@@ -36,7 +34,6 @@ class Controller {
             } 
         })
         .catch(err => {
-            console.log(err, 'catch')
             err = 'user not found'
             res.redirect(`/signIn?error=${err}`)
         })
@@ -56,7 +53,6 @@ class Controller {
             res.redirect(`/signUp/profile/?id=${user.id}`)
         })
         .catch(err => {
-            console.log(err)
             res.send(err)
         })
     }
@@ -67,7 +63,6 @@ class Controller {
     }
 
     static profilePost(req, res) {
-        console.log(req.body)
         Profile.create({
             username: req.body.username,
             password: req.body.password,
@@ -76,7 +71,6 @@ class Controller {
             role: req.body.role
         })
         .then((profile) => {
-            console.log(profile)
             if(profile.role === 'user'){
                 res.redirect(`/user/${profile.id}`) //user/:id
             } else {
@@ -84,7 +78,6 @@ class Controller {
             }
         })
         .catch(err => {
-            console.log(err)
             res.send(err)
         })
     }

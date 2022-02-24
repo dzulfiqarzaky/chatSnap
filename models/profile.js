@@ -93,6 +93,9 @@ module.exports = (sequelize, DataTypes) => {
         const salt = bcrypt.genSaltSync(7)
         const hash = bcrypt.hashSync(instance.password, salt)
         instance.password = hash
+      },
+      beforeCreate(instance, options){
+        instance.role = instance.role.toLowerCase()
       }
     },
     sequelize,

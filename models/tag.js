@@ -18,6 +18,11 @@ module.exports = (sequelize, DataTypes) => {
   Tag.init({
     name: DataTypes.STRING
   }, {
+    hooks: {
+      beforeCreate(instance, options) {
+        instance.name = `#${instance.name}`
+      }
+    },
     sequelize,
     modelName: 'Tag',
   });

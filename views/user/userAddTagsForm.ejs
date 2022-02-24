@@ -1,0 +1,14 @@
+<%- include('../helper/header') -%> 
+
+  <div class="container mt-5">
+    <h1>Add New Tags</h1>
+    <form method="post" action="/user/tag/add" class="container mt-5">
+      <div class="mb-3">
+        <label for="title" class="form-label">New Tags</label>
+        <input type="text" class="form-control" name="name" placeholder="" required />
+      </div>
+        <button type="submit" class="btn btn-primary mt-5">add Tags</button>
+    </form>
+  </div>
+
+<%- include('../helper/footer') -%> 

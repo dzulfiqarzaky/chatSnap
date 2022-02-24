@@ -2,12 +2,13 @@
 
 <%- include ('../helper/navbar') %> 
 
-<a href="/logOut" class="btn btn-outline-danger mt-5">logout</a>
+
 
 
 
 
 <div class="container mt-5">
+
   <form action="/admin" method="get">
     <a href="/admin" class="btn btn-primary">all users</a>
     <button type="submit" class="btn btn-primary" name="filter" value="Post">all post</button>
@@ -93,6 +94,7 @@
         </tbody>
       </table>
       <% } %>
+      <a href="/logOut" class="btn btn-outline-danger mt-5">logout</a>
 </div>
 
 <%- include('../helper/footer') -%>
