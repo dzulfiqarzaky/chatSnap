@@ -10,6 +10,16 @@ module.exports = (sequelize, DataTypes) => {
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
+    static sum(){
+      return Profile.findAll({
+        where: {role: 'user'},
+        attributes: [
+          [sequelize.fn('count', sequelize.col('role')), count]
+        ]
+      })
+        .then((result) => `Jumlah seluruh user adalah ${result[0].datavalues.count}`)
+    }
+
     static associate(models) {
       // define association here
       Profile.belongsTo(models.User, {foreignKey: 'userId'})
@@ -17,10 +27,62 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Profile.init({
-    username: DataTypes.STRING,
-    password: DataTypes.STRING,
-    email: DataTypes.STRING,
-    role: DataTypes.STRING,
+    username: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty: {
+          args: true,
+          msg: 'username cannot be empty'
+        },
+        notNull: {
+          args: true,
+          msg: 'username cannot be empty'
+        }
+      }
+    },
+    password: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty: {
+          args: true,
+          msg: 'password cannot be empty'
+        },
+        notNull: {
+          args: true,
+          msg: 'password cannot be empty'
+        }
+      }
+    },
+    email: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty: {
+          args: true,
+          msg: 'email cannot be empty'
+        },
+        notNull: {
+          args: true,
+          msg: 'email cannot be empty'
+        }
+      }
+    },
+    role: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty: {
+          args: true,
+          msg: 'role cannot be empty'
+        },
+        notNull: {
+          args: true,
+          msg: 'role cannot be empty'
+        }
+      }
+    },
     userId: DataTypes.INTEGER
   }, {
     hooks:{

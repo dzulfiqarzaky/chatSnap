@@ -1,6 +1,7 @@
 const {Post, Profile, User, Tag, Post_Tag} = require('../models')
 const multer = require('multer')
 const path = require('path')
+const randomQuotes = require('../helper/quotes')
 
 
 class UserController {
@@ -29,7 +30,7 @@ class UserController {
     static userPost(req, res) {
         Profile.findByPk(req.session.userId, {include: [{model: Post}], where: {role: 'user'}})
         .then(profile => {
-            res.render('./user/userPost', {profile, id: req.session.userId})
+            res.render('./user/userPost', {profile, id: req.session.userId, randomQuotes})
         }).catch(err => {
             res.send(err)
         })
@@ -46,6 +47,7 @@ class UserController {
     }
 
     static userPostAdd(req, res) {
+        console.log(req.session)
         //create berulang sesuai jumlah array
         Post.create({
             title: req.body.title, 
@@ -54,13 +56,21 @@ class UserController {
         })
         .then(post => {
             const tags = req.body.tagId
-            tags.forEach(tag => {
+            if(tags.length === 1){
                 Post_Tag.create({
                     PostId: post.id,
-                    TagId: tag
+                    TagId: tags
                 })
+            } else {
+                tags.forEach(tag => {
+                    Post_Tag.create({
+                        PostId: post.id,
+                        TagId: tag
+                    })
             })
-        }).then(() =>  res.redirect(`/user/post/add/upload`))
+            }
+            res.redirect(`/user/post/add/${post.id}/upload`)
+        })
         .catch(err => {
             console.log(err)
             res.send(err)
@@ -68,12 +78,14 @@ class UserController {
     }
     
     static userUploadForm(req, res) {
-        console.log(`masuk`)
-        res.render('./user/userUploadForm')
+        const {postId} = req.params
+        console.log(req.params)
+        res.render('./user/userUploadForm', {postId})
     }
 
     static userUpload(req, res) {
-        let id = req.session.PostId
+        const {postId} = req.params
+        console.log(req.params, 'userUpload')
         let newFile
         //set storage
         const storage = multer.diskStorage({
@@ -105,16 +117,16 @@ class UserController {
             cb('Images only')
             }
         }
-        console.log(req.se)
+
         upload(req, res, (err)=> {
             if(err) {
                 res.render('./user/userUploadForm', {msg:err})
             } else {
                 if(!req.file){
-                    res.render('./user/userUploadForm', {msg: 'no file selected'})
+                    res.render(`./user/userUploadForm`, {msg: 'no file selected'})
                 } else {
                 Post.update({img: `upload/${newFile}` },
-                    { where: { id: id }
+                    { where: { id: postId }
                 })
                 .then(image=> {
                     console.log(newFile)

@@ -5,7 +5,7 @@ class AdminController {
 
     static allUser(req, res){
         console.log(req.session, 'ini allUser')
-
+        
         const {filter} = req.query
         const id = req.session.userId
         let filters = []
@@ -33,9 +33,12 @@ class AdminController {
                 res.send(err)
             })
         } else{
+            let users
             
-            Profile.findAll({where: {role: 'user'}})
-            .then( users => {
+            Profile.findAll({include: User, where: {role: 'user'}})
+            .then( user => {
+                console.log(user[0].User.age , 'umur')
+                users = user
                 Profile.findByPk(id)
                 .then(admin => res.render('./admin/allUser', {users, filters, admin}))
             }).catch(err => {

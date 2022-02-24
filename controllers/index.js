@@ -93,9 +93,15 @@ class Controller {
         res.send('userPage');
     }
 
-    static logOut(req,res){
-        res.send("logOut")
-    }
+    static logOut(req, res) {
+        req.session.destroy((err) => {
+          if (err){
+            res.send(err)
+          } else {
+            res.redirect('/signIn')
+          }
+        })
+      }
 
 }
 

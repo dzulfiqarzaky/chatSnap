@@ -1,6 +1,12 @@
 <%- include('../helper/header') -%>
 
 <%- include ('../helper/navbar') %> 
+
+<a href="/logOut" class="btn btn-outline-danger mt-5">logout</a>
+
+
+
+
 <div class="container mt-5">
   <form action="/admin" method="get">
     <a href="/admin" class="btn btn-primary">all users</a>
@@ -10,6 +16,7 @@
 
 
   <H1 class="mt-5">welcome admin <%= admin.username %> </H1>
+  <h3></h3>
   <% if (filters.length > 0) { %>
     <% if (filters[0].title) { %>
       <table class="table mt-5">
@@ -66,20 +73,20 @@
             <th scope="col">id</th>
             <th scope="col">UserName</th>
             <th scope="col">Email</th>
-            <th scope="col">Role</th>
+            <th scope="col">Age</th>
             <th scope="col">Action</th>
           </tr>
         </thead>
         <tbody>
-          <% users.forEach((user, i) =>{%>
+          <% users.forEach((profile, i) =>{%>
                 <tr>
                   <th scope="row"><%= i+1 %></th>
-                  <td><%= user.username %></td>
-                    <td><%= user.email %></td>
-                    <td><%= user.role %></td>
+                  <td><%= profile.username %></td>
+                    <td><%= profile.email %></td>
+                    <td><%= profile.User.age %></td>
                     <td>
                         <a href="" style="width: 8rem;" class="btn btn-outline-primary" type="button">User details</a>
-                        <a href="/admin/delete/user/<%= user.id %>" style="width: 8rem;" class="btn btn-danger" type="button">Delete</a>  
+                        <a href="/admin/delete/user/<%= profile.id %>" style="width: 8rem;" class="btn btn-danger" type="button">Delete</a>  
                     </td>
                 </tr>
           <% }) %>

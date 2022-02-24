@@ -11,6 +11,7 @@ router.get('/signUp', Controller.signUp) //signup page
 router.post('/signUp', Controller.signUpPost) //signup post
 router.get('/signUp/profile', Controller.profile) //signup/profile page
 router.post('/signUp/profile', Controller.profilePost) //signup/profile post
+router.get('/logOut', Controller.logOut) //log out
 
 let isLogin = function(req,res,next){
   // console.log(req.session)

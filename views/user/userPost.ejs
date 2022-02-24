@@ -3,14 +3,16 @@
 <div class="container mt-5">
   <h1>welcome <%= profile.username %> </h1>
   <% const date = new Date().getHours() %> 
-
+  
   <h3 style="color: lightcoral"><%= date < 12? 'Good morning': date < 18? 'Good evening': date < 24? 'Good night': ''  %></h3>
+  <h4 style="color: burlywood;"><%= randomQuotes() %> </h4>
   
 <a href="/user/post/add" class="btn btn-primary">add new post</a>
   <div class="d-flex flex-wrap bd-highlight gap-5 ">
+    <% console.log(profile.Posts[0]) %> 
     <% profile.Posts.forEach(post => { %>
       <div class="card mt-4" style="width: 18rem;">
-        <img src="<%= post.img %> " class="card-img-top" alt="...">
+        <img src="<%= post.img %>" class="card-img-top" alt="...">
         <div class="card-body">
           <h5 class="card-title text-center"><%= post.title %></h5>
           <p class="card-text text-center"><%= post.description %></p>
