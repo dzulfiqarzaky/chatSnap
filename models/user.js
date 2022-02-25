@@ -60,7 +60,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   }, {
     hooks: {
-
+      
     },
     sequelize,
     modelName: 'User',

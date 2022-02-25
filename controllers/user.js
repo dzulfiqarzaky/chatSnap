@@ -70,7 +70,12 @@ class UserController {
             res.redirect(`/user/post/add/${post.id}/upload`)
         })
         .catch(err => {
+            if(err.name === 'SequelizeValidationError') {
+                let errors = err.errors.map(val => val.message)
+                res.send(errors)
+            } else {
             res.send(err)
+            }
         })
     }
     
@@ -85,7 +90,12 @@ class UserController {
         .then(() => {
             res.redirect('/user/')
         }).catch(err => {
+            if(err.name === 'SequelizeValidationError') {
+                let errors = err.errors.map(val => val.message)
+                res.send(errors)
+            } else {
             res.send(err)
+            }
         })
     }
 
@@ -196,7 +206,12 @@ class UserController {
                 res.redirect(`/user/post/`)
             })
         }).catch(err => {
+            if(err.name === 'SequelizeValidationError') {
+                let errors = err.errors.map(val => val.message)
+                res.send(errors)
+            } else {
             res.send(err)
+            }
         })
     }
     

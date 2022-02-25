@@ -1,5 +1,5 @@
 const {Post, Profile, User, Tag} = require('../models')
-
+const randomQuotes = require('../helper/quotes')
 
 class AdminController {
 
@@ -14,7 +14,7 @@ class AdminController {
             .then(tags => {
                 filters.push(...tags)
                 Profile.findByPk(id)
-                .then(admin => res.render('./admin/allUser', {filters, admin}))
+                .then(admin => res.render('./admin/allUser', {filters, admin, randomQuotes}))
             }).catch(err => {
                 res.send(err)
             })
@@ -23,7 +23,7 @@ class AdminController {
             .then(posts => {
                 filters.push(...posts)
                 Profile.findByPk(id)
-                .then(admin => res.render('./admin/allUser', {filters, admin}))
+                .then(admin => res.render('./admin/allUser', {filters, admin, randomQuotes}))
             }).catch(err => {
                 res.send(err)
             })
@@ -39,7 +39,7 @@ class AdminController {
                 admin = single
                 return Profile.sum()
             })
-            .then(sum => res.render('./admin/allUser', {users, filters, admin, sum}))
+            .then(sum => res.render('./admin/allUser', {users, filters, admin, sum, randomQuotes}))
             .catch(err => {
                 res.send(err)
             })

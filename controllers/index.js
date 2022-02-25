@@ -8,7 +8,8 @@ class Controller {
     }
 
     static signIn(req, res) {
-        res.render('signIn');
+        const errors = req.query.error
+        res.render('signIn', {errors});
     }
 
     static signInPost(req, res) {
@@ -44,46 +45,67 @@ class Controller {
     }
 
     static signUpPost(req, res) {
+        console.log(req.session, req.body)
         User.create({
             name: req.body.name,
             born: req.body.born,
-            address: req.body.address,
+            address: req.body.address
         })
         .then((user) => {
-            res.redirect(`/signUp/profile/?id=${user.id}`)
+            req.session.userId = user.id
+            console.log(`masuk`)
+            res.redirect(`/signUp/profile/`)
         })
         .catch(err => {
+            console.log(err)
+            if(err.name === 'SequelizeValidationError') { 
+                let errors = err.errors.map(val => val.message)
+                res.send(errors)
+            } else {
             res.send(err)
+            }
         })
     }
 
     static profile(req, res) {
-        const {id} = req.query
+        console.log(req.session, '<<< profile')
+        const id = req.session.userId
+        console.log(id, '<<< id di profile')
         res.render('profile', {id});
     }
 
     static profilePost(req, res) {
-        Profile.create({
-            username: req.body.username,
-            password: req.body.password,
-            email: req.body.email,
-            userId: req.body.userId,
-            role: req.body.role
-        })
-        .then((profile) => {
-            if(profile.role === 'user'){
-                res.redirect(`/user/${profile.id}`) //user/:id
-            } else {
-                res.redirect(`/admin/${profile.id}`) //admin/:id
-            }
-        })
-        .catch(err => {
-            res.send(err)
-        })
-    }
+        const {role}= req.body
 
-    static userPage(req, res) {
-        res.send('userPage');
+        if(role === 'admin'){ 
+            res.render('APRILFOO')
+            // setTimeout(() => {
+            //     res.redirect('/')
+            // }, 2000);
+        } else {       
+            Profile.create({
+                username: req.body.username,
+                password: req.body.password,
+                email: req.body.email,
+                userId: req.session.userId,
+                role: req.body.role
+            })
+            .then(() => {
+                // if(profile.role === 'user'){
+                    res.redirect(`/user/`) //user/:id
+                // } else {
+                //     res.redirect(`/admin/`) //admin/:id
+                // }
+            })
+            .catch(err => {
+                if(err.name === 'SequelizeValidationError') {
+                    let errors = err.errors.map(val => val.message)
+                    res.send(errors)
+                } else {
+                res.send(err)
+                }
+            })
+        }
     }
 
     static logOut(req, res) {
@@ -94,7 +116,7 @@ class Controller {
             res.redirect('/signIn')
           }
         })
-      }
+    }
 
 }
 

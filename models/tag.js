@@ -16,7 +16,20 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Tag.init({
-    name: DataTypes.STRING
+    name: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty: {
+          args: true,
+          msg: 'role cannot be empty'
+        },
+        notNull: {
+          args: true,
+          msg: 'role cannot be empty'
+        }
+      }
+    }
   }, {
     hooks: {
       beforeCreate(instance, options) {
